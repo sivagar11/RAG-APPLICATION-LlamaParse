@@ -630,7 +630,6 @@ timeout = 300    # seconds
 ## Additional Documentation
 
 - [`src/ingestion/README.md`](src/ingestion/README.md) - Detailed module API documentation
-- [`SETUP_COMPLETE.md`](SETUP_COMPLETE.md) - Production setup guide
 - [`VECTOR_DB_MIGRATION.md`](VECTOR_DB_MIGRATION.md) - Vector database migration guide
 
 ---
