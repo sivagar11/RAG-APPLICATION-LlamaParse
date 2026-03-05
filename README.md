@@ -471,7 +471,7 @@ Mag-/
 │   ├── test_ingestion.py   # Ingestion test suite
 │   ├── install-hooks.sh    # Git hook installer
 │   └── clean.sh            # Cleanup utility
-├── tests/                  # Test suite (43+ tests)
+├── tests/                  # Test suite
 │   ├── test_config.py
 │   ├── test_parse.py
 │   ├── test_app.py
@@ -479,7 +479,6 @@ Mag-/
 ├── data/                   # Input PDFs (your documents)
 ├── storage/                # Vector index (generated)
 ├── data_images/            # Page images (generated, by doc_id)
-├── docs.md                 # LlamaIndex documentation reference
 ├── Makefile                # Common commands
 ├── requirements.txt        # Python dependencies
 └── pytest.ini              # Test configuration
@@ -677,7 +676,7 @@ timeout = 300    # seconds
 ## Additional Documentation
 
 - [`src/ingestion/README.md`](src/ingestion/README.md) - Detailed module API documentation
-- [`VECTOR_DB_MIGRATION.md`](VECTOR_DB_MIGRATION.md) - Vector database migration guide
+- [`src/api/README.md`](src/api/README.md) - FastAPI API reference and examples
 
 ---
 
