@@ -19,6 +19,10 @@ make run    # or: streamlit run src/app.py
 
 # Option B: FastAPI REST API (for programmatic access)
 make api    # or: cd src && uvicorn api.main:app --reload
+
+# Option C: Docker Compose (containerized API)
+docker compose up -d api
+# API docs at http://localhost:8000/docs
 ```
 
 **Architecture:**
@@ -32,6 +36,7 @@ make api    # or: cd src && uvicorn api.main:app --reload
 ## Table of Contents
 
 - [Configuration](#configuration)
+- [Docker Deployment](#docker-deployment)
 - [Document Ingestion Workflow](#document-ingestion-workflow)
 - [Ingestion Architecture](#ingestion-architecture)
 - [FastAPI Backend](#fastapi-backend)
@@ -78,6 +83,42 @@ See `env.example` for all available configuration options including:
 - LLM model selection (OpenAI/Gemini)
 - RAG parameters (chunk size, similarity threshold)
 - Directory paths
+
+---
+
+## Docker Deployment
+
+Run the API in a container using the included `Dockerfile` and `docker-compose.yml`.
+
+### Prerequisites
+
+- Docker + Docker Compose installed
+- `.env` configured with required API keys
+
+### Start Services
+
+```bash
+# API only (uses your .env settings, e.g., Qdrant Cloud)
+docker compose up -d api
+
+# API + local Qdrant for development
+docker compose up -d api qdrant
+
+# Full optional local stack (api + qdrant + minio)
+docker compose up -d
+```
+
+### Build / Rebuild API Image
+
+```bash
+docker compose build api
+```
+
+### Stop Services
+
+```bash
+docker compose down
+```
 
 ---
 
@@ -399,6 +440,9 @@ For detailed API documentation, see [`src/api/README.md`](src/api/README.md).
 
 ```
 Mag-/
+├── Dockerfile              # Container image for FastAPI service
+├── .dockerignore           # Docker build context exclusions
+├── docker-compose.yml      # Local service orchestration (api/qdrant/minio)
 ├── src/                     # Application code
 │   ├── config.py           # Centralized configuration
 │   ├── app.py              # Streamlit web app (query interface)
@@ -452,6 +496,8 @@ make help               # Show all commands
 make run                # Run Streamlit app
 make api                # Run FastAPI server (development mode)
 make api-prod           # Run FastAPI server (production mode with workers)
+docker compose up -d api  # Run API in Docker
+docker compose up -d api qdrant  # Run API + local Qdrant
 make parse              # Parse all PDFs (fresh index)
 make add-batch          # Add PDFs to existing index
 make test               # Run full test suite
@@ -460,6 +506,7 @@ make clean              # Clean Python cache
 make clean-storage      # Clear vector index
 make format             # Format code (black + isort)
 make lint               # Lint code (flake8 + mypy)
+docker compose down     # Stop Docker services
 ```
 
 ### Git Hook

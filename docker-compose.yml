@@ -12,6 +12,24 @@ version: '3.8'
 # =============================================================================
 
 services:
+  # FastAPI Application
+  api:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: rag-api
+    ports:
+      - "8000:8000"
+    env_file:
+      - .env
+    volumes:
+      - ./data:/app/data
+      - ./data_images:/app/data_images
+      - ./storage:/app/storage
+    restart: unless-stopped
+    networks:
+      - rag-network
+
   # Qdrant Vector Database (Local)
   qdrant:
     image: qdrant/qdrant:latest
@@ -77,4 +95,3 @@ volumes:
 networks:
   rag-network:
     driver: bridge
-
